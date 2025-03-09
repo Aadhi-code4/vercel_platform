@@ -15,7 +15,7 @@ app.add_middleware(
 )
 
 # Load data from data/q-ver.json
-data_file_path = os.path.join(os.path.dirname(__file__), 'data', 'q-ver.json')
+data_file_path = os.path.join(os.path.dirname(__file__), '..', 'data', 'students.json')
 with open(data_file_path) as f:
     students = json.load(f)
 
@@ -29,9 +29,8 @@ def get_marks(name: str):
 @app.get("/")
 def read_root():
     return {"message": "Hello, World!"}
-    
+
 # Run the app
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0", port=8000)
-
