@@ -1,11 +1,11 @@
-from fastapi import FastAPI, Query, HTTPException
+from fastapi import FastAPI, Query
 from fastapi.middleware.cors import CORSMiddleware
 import json
 import os
 
 app = FastAPI()
 
-# Enable CORS to allow GET requests from any origin
+# Enable CORS
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -15,25 +15,21 @@ app.add_middleware(
 )
 
 # Load data from data/students.json
-data_file_path = os.path.join(os.path.dirname(__file__), 'data', 'students.json')
-if not os.path.isfile(data_file_path):
-    raise FileNotFoundError(f"Data file not found: {data_file_path}")
-
+data_file_path = os.path.join(os.path.dirname(__file__), "..", "data", "students.json")
 with open(data_file_path) as f:
     students = json.load(f)
 
+# Convert students list to a dictionary for faster lookup
+students_dict = {student["name"]: student["marks"] for student in students}
+
 @app.get("/api")
-def get_marks(names: list[str] = Query(None)):
-    if not names:
-        raise HTTPException(status_code=400, detail="No names provided")
-    
-    marks = [students.get(name, 0) for name in names]
+def get_marks(name: list[str] = Query([])):  
+    marks = [students_dict.get(n, None) for n in name]  # Preserve order
     return {"marks": marks}
 
-# Example root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "Hello, go to '/api'"}
+    return {"message": "Hello, go to /api"}
 
 # Run the app
 if __name__ == "__main__":
