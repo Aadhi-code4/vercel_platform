@@ -10,6 +10,16 @@
     {
       "src": "/api",
       "dest": "/api/main.py"
+    },
+    {
+      "src": "/",
+      "dest": "/api/main.py"
     }
-  ]
+  ],
+  "files": {
+    "data/students.json": {
+      "src": "data/students.json",
+      "dest": "/data/students.json"
+    }
+  }
 }
