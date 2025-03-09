@@ -1,25 +1,5 @@
 {
-  "version": 2,
-  "builds": [
-    {
-      "src": "api/main.py",
-      "use": "@vercel/python"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/api",
-      "dest": "/api/main.py"
-    },
-    {
-      "src": "/",
-      "dest": "/api/main.py"
-    }
-  ],
-  "files": {
-    "data/students.json": {
-      "src": "data/students.json",
-      "dest": "/data/students.json"
-    }
-  }
+  "builds": [{ "src": "api/main.py", "use": "@vercel/python" }],
+  "routes": [{ "src": "/(.*)", "dest": "api/main.py" }],
+  "files": [{"src": "data/students.json"}]
 }
