@@ -27,7 +27,7 @@ def get_marks(names: list[str] = Query(None)):
 # Example root endpoint
 @app.get("/")
 def read_root():
-    return {"message": "Hello, World!"}
+    return [{"message": "Hello, World!"},{"go to":"/api"}]
 
 # Run the app
 if __name__ == "__main__":
